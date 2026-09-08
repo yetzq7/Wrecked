@@ -1,5 +1,6 @@
 // dllmain.cpp : Defines the entry point for the DLL application.
 #include "framework.h"
+#include "pch.h"
 
 
 void WreckedMain
@@ -9,6 +10,18 @@ void WreckedMain
     freopen_s(&f, "CONOUT$", "w", stdout);
     SetConsoleTitleA("Wrecked | Starting..");
 
+    MH_Initialize();
+
+    Gamemode::Hook();
+    Misc::Hook();
+    Utils::Hook();
+     
+    MH_EnableHook(MH_ALL_HOOKS);
+
+    *(bool*)GIsClient = false;
+    *(bool*)GIsServer = true;
+    UFortEngine::GetEngine()->GameInstance->LocalPlayers.Remove(0);
+    UKismetSystemLibrary::ExecuteConsoleCommand(UWorld::GetWorld(), L"open Helios_Terrain", nullptr);
 }
 
 BOOL APIENTRY DllMain( HMODULE hModule,

@@ -7,4 +7,9 @@
 #include <string>
 #include <thread>
 #include <cstring>
+#include <cstdint>
+#include <vector>
 #include <map>
+#include "SDK/SDK.hpp"
+using namespace SDK
+#include "includes/Minhook.h"
